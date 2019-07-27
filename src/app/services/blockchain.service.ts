@@ -1,33 +1,45 @@
 import { Injectable } from '@angular/core';
-import { BlockChain } from 'BlockChain-Transaction/src/blockChain';
-import EC from 'elliptic';
+import {Blockchain} from 'savjeecoin';
+import EC from 'elliptic'
+
 @Injectable({
   providedIn: 'root'
 })
 export class BlockchainService {
-  public blockchainInstance = new BlockChain();
-  public walletkeys = [];
-
-  constructor() { 
+  public blockchainInstance = new Blockchain();
+  public walletKeys = [];
+  constructor() {
     this.blockchainInstance.difficulty = 1;
-    this.blockchainInstance.minePendingTransaction('my-wallet-address');
+    this.blockchainInstance.minePendingTransactions('my-wallet-address');
+
     this.generateWalletKeys();
   }
-
-  getBlocks()
-  {
+  getBlocks(){
     return this.blockchainInstance.chain;
   }
 
-  generateWalletKeys()
-  {
-    const ec = new EC.ec('secp256k1');
-    const key = ec.genKeypair();
+  addTransaction(tx){
+    this.blockchainInstance.addTransaction(tx);
+  }
 
-    this.walletkeys.push({
-      keyObj : key,
-      publicKey: key.getPublic('hex'),
-      privatekey: key.getPrivate('hex'),
-    });
+  getPendingTransactions(){
+    return this.blockchainInstance.pendingTransactions;
+  }
+
+  minePendingTransactions(){
+    this.blockchainInstance.minePendingTransactions(
+      this.walletKeys[0].publicKey
+    )
+  }
+
+  generateWalletKeys(){
+    const ec =  new EC.ec('secp256k1');
+    const key = ec.genKeyPair();
+
+    this.walletKeys.push({
+      keyObj: key,
+      publicKey : key.getPublic('hex'),
+      privateKey : key.getPrivate('hex'),
+    })
   }
 }
