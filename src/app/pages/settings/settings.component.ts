@@ -1,3 +1,4 @@
+import { BlockchainService } from './../../services/blockchain.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor() { }
+  public blockchain;
+
+  constructor(private BlockchainService: BlockchainService) {
+     this.blockchain = BlockchainService.blockchainInstance;
+   }
 
   ngOnInit() {
   }

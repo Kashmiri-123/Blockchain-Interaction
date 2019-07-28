@@ -1,9 +1,15 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
-<nav class="navbar navbar-dark bg-dark">
-  <a class="navbar-brand" routerlink="/">
-   BitCoin
-  </a>
-</nav>
+<nav  class="navbar navbar-dark bg-dark">
+  <a href="" class="navbar-brand" routerLink="/"> katlic Coin </a>
 
+  <div>
+     <button class="btn btn-outline-light" routerLink='/settings'> Settings </button>
+     &nbsp;
+     <button class="btn btn-outline-light" routerLink='/new/transaction'> create transaction </button>
+     &nbsp;
+     <button class="btn btn-outline-light" routerLink='/new/transactions/pending-transactions'> Pending Transactions </button>
+
+  </div>
+</nav>
 <router-outlet></router-outlet>
